@@ -1,30 +1,9 @@
-ARG hubImage="noctonyx/unity-hub"
-ARG baseImage="noctonyx/unity-base"
-
-###########################
-#         Builder         #
-###########################
-
-FROM $hubImage AS builder
-
-# Install editor
-ARG version="2020.2.0b9"
-ARG changeSet="ef2968fa77ae"
-RUN unity-hub install --version "$version" --changeset "$changeSet" | grep 'Error' | exit $(wc -l)
+FROM noctonyx/editor-base:2020.2.0b9 AS builder
 
 # Install modules for that editor
-ARG module="base"
-RUN if [ "$module" = "base" ] ; then \
-      echo "running default modules for this baseOs" ; exit 0 ; \
-    else \
-      unity-hub install-modules --version "$version" --module "$module" --childModules | grep 'Missing module' | exit $(wc -l) ; \
-    fi
+RUN      unity-hub install-modules --version "2020.2.0b9" --module "windows-mono" --childModules | grep 'Missing module' | exit $(wc -l) 
 
-###########################
-#          Editor         #
-###########################
-
-FROM $baseImage
+FROM "noctonyx/unity-base"
 
 # Always put "Editor" and "modules.json" directly in $UNITY_PATH
 ARG version="2020.2.0b9"
