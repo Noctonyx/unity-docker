@@ -3,7 +3,7 @@ FROM noctonyx/editor-base:2020.2.0b9 AS builder
 # Install modules for that editor
 RUN      unity-hub install-modules --version "2020.2.0b9" --module "windows-mono" --childModules | grep 'Missing module' | exit $(wc -l) 
 
-FROM "noctonyx/unity-base"
+FROM noctonyx/unity-base:1.0.0
 
 # Always put "Editor" and "modules.json" directly in $UNITY_PATH
 ARG version="2020.2.0b9"
