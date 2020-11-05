@@ -1,4 +1,4 @@
-FROM noctonyx/unity-hub
+FROM noctonyx/unity-hub:1.0.0
 
 # Install editor
 ARG version="2020.2.0b9"
