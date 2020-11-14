@@ -1,12 +1,12 @@
-FROM noctonyx/editor-base:2020.2.0b10 AS builder
+FROM noctonyx/editor-base:2020.2.0b11 AS builder
 
 # Install modules for that editor
-RUN      unity-hub install-modules --version "2020.2.0b10" --module "windows-mono" --childModules | grep 'Missing module' | exit $(wc -l) 
+RUN      unity-hub install-modules --version "2020.2.0b11" --module "windows-mono" --childModules | grep 'Missing module' | exit $(wc -l) 
 
-FROM noctonyx/unity-base:1.0.0
+FROM noctonyx/unity-base:1.0.1
 
 # Always put "Editor" and "modules.json" directly in $UNITY_PATH
-ARG version="2020.2.0b10"
+ARG version="2020.2.0b11"
 COPY --from=builder /opt/unity/editors/$version/ "$UNITY_PATH/"
 
 # Add a file containing the version for this build

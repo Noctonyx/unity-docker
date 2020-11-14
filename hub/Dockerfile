@@ -1,4 +1,4 @@
-ARG baseImage="noctonyx/unity-base"
+ARG baseImage="noctonyx/unity-base:1.0.1"
 FROM $baseImage
 
 # Hub dependencies
